@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="popup.css">
+  <title>Quiet Reader</title>
+</head>
+<body>
+  <main>
+    <header><span class="brand-mark">Q.</span><span>QUIET READER</span></header>
+    <section id="home">
+      <p class="eyebrow">A LITTLE SPACE TO THINK</p>
+      <h1>Read without<br>the noise.</h1>
+      <p class="intro">A clean reading view for the article in front of you, with your thoughts kept close.</p>
+      <button id="open" class="primary">Open in Reader <span aria-hidden="true">↗</span></button>
+      <p id="status" role="status"></p>
+      <button id="saved-link" class="text-button">Saved articles <span aria-hidden="true">→</span></button>
+    </section>
+    <section id="saved" hidden>
+      <button id="back" class="text-button">← Back</button>
+      <p class="eyebrow">YOUR LIBRARY</p>
+      <h1>Saved articles.</h1>
+      <div id="saved-list"></div>
+    </section>
+    <footer>PRIVATE BY DESIGN · STORED ON THIS DEVICE</footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

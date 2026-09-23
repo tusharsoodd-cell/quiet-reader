@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Quiet Reader smoke test</title>
+<div id="fixture"><p>Read this quiet line twice.</p><p>Read this quiet line twice.</p></div>
+<pre id="result">RUNNING</pre>
+<script src="../lib/DOMPurify.js"></script>
+<script src="../anchors.js"></script>
+<script>
+  const assert = (condition, message) => { if (!condition) throw Error(message); };
+  try {
+    const fixture = document.getElementById("fixture");
+    const text = fixture.querySelectorAll("p")[1].firstChild;
+    const range = document.createRange();
+    range.setStart(text, 10);
+    range.setEnd(text, 20);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    const anchor = QuietAnchors.getSelectionAnchor(fixture, selection);
+    assert(anchor.exact === "quiet line", "selection exact quote");
+    const full = fixture.textContent;
+    assert(QuietAnchors.locate(full, anchor) === full.lastIndexOf("quiet line"), "context disambiguates repeated quote");
+    const found = QuietAnchors.paint(fixture, [{ id: "one", anchor, className: "highlight-mark" }]);
+    assert(found.has("one"), "highlight resolved");
+    assert(fixture.querySelectorAll("mark").length === 1, "one mark rendered");
+    assert(fixture.querySelector("mark").textContent === "quiet line", "mark wraps exact text");
+    assert(fixture.querySelector("mark").classList.contains("highlight-mark"), "highlight styling preserved");
+    const comment = { id: "comment-one", anchor: { exact: "quiet line", prefix: "Read this ", suffix: " twice." }, className: "comment-anchor" };
+    fixture.innerHTML = "<p>Read this quiet line twice.</p>";
+    const commentResult = QuietAnchors.paint(fixture, [comment]);
+    assert(commentResult.has("comment-one"), "comment anchor resolved");
+    assert(fixture.querySelector("mark").classList.contains("comment-anchor"), "comment anchor styling preserved");
+    assert(!DOMPurify.sanitize('<img src=x onerror=alert(1)>').includes("onerror"), "HTML sanitized");
+    document.getElementById("result").textContent = "PASS";
+  } catch (error) {
+    document.getElementById("result").textContent = "FAIL: " + error.message;
+  }
+</script>
+</html>

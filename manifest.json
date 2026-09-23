@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Quiet Reader",
+  "version": "0.1.0",
+  "description": "A calm place to read and privately annotate articles.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "action": {
+    "default_title": "Quiet Reader",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["lib/Readability.js", "lib/DOMPurify.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

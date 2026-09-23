@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiet Reader</title>
+  <link rel="stylesheet" href="reader.css">
+</head>
+<body data-theme="paper">
+  <div class="progress-track" aria-hidden="true"><div id="progress-bar"></div></div>
+  <header class="topbar">
+    <a class="brand" href="#" id="home-link" title="Back to top">Q<span class="brand-dot">.</span> <span>QUIET READER</span></a>
+    <div class="top-actions">
+      <span id="progress-label">0% read</span>
+      <button id="download-copy" class="download-copy" title="Download a compact copy with highlights and comments">Download</button>
+      <div class="theme-switch" role="group" aria-label="Reading theme">
+        <button data-set-theme="light" title="Light theme" aria-label="Light theme">☀</button>
+        <button data-set-theme="paper" title="Paper theme" aria-label="Paper theme">◐</button>
+        <button data-set-theme="night" title="Night theme" aria-label="Night theme">☾</button>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="article-pane">
+      <div id="error" class="error-state" hidden>
+        <span class="eyebrow">NOT THIS TIME</span>
+        <h1>We couldn't open this article.</h1>
+        <p>Try opening a standard web article from the extension popup. Some pages and browser tabs do not allow extraction.</p>
+      </div>
+      <article id="reading-view" hidden>
+        <div class="article-heading">
+          <span class="eyebrow">THE READING ROOM <span class="small-rule"></span> <span id="site-name"></span></span>
+          <h1 id="article-title"></h1>
+          <div class="article-meta"><span id="byline"></span><span id="read-time"></span></div>
+          <div class="heading-footer">
+            <a id="source-link" target="_blank" rel="noopener noreferrer">View original <span aria-hidden="true">↗</span></a>
+            <span id="saved-date"></span>
+          </div>
+        </div>
+        <div id="article-body" class="article-body"></div>
+        <div class="endnote"><span class="endmark">✦</span><p>You've reached the end.</p><a id="end-source" target="_blank" rel="noopener noreferrer">Return to original ↗</a></div>
+      </article>
+    </div>
+    <aside id="annotation-rail" aria-label="Comments"></aside>
+  </main>
+  <div id="selection-menu" class="selection-menu" hidden>
+    <button id="highlight-selection" class="quiet-button">Highlight</button>
+    <button id="comment-selection" class="solid-button">Comment</button>
+  </div>
+  <div id="comment-editor" class="comment-editor" hidden>
+    <span class="eyebrow">NEW COMMENT</span>
+    <blockquote id="comment-preview"></blockquote>
+    <label for="new-note">Your comment</label>
+    <textarea id="new-note" rows="4" placeholder="Write beside this passage…"></textarea>
+    <div class="composer-actions"><button id="cancel-highlight" class="quiet-button">Cancel</button><button id="save-comment" class="solid-button">Save comment</button></div>
+  </div>
+  <div id="annotation-actions" class="annotation-actions" hidden>
+    <button id="add-comment-existing" class="quiet-button">Comment</button>
+    <button id="copy-highlight" class="quiet-button">Copy quote</button>
+    <button id="delete-highlight" class="quiet-button">Remove highlight</button>
+  </div>
+  <svg id="connector-layer" aria-hidden="true"></svg>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="lib/DOMPurify.js"></script>
+  <script src="anchors.js"></script>
+  <script src="reader.js"></script>
+</body>
+</html>
